@@ -2,7 +2,7 @@ name: Android Distribution
 
 on:
   push:
-    branches: [ v2 ]
+    branches: [ readme ]
 
 jobs:
   distribute:
