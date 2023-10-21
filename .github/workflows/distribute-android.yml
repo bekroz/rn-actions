@@ -39,6 +39,9 @@ jobs:
 
             echo "$GOOGLE_SERVICES" > google-services.json.b64
             base64 -d -i google-services.json.b64 > android/app/google-services.json
+
+            cd android/app
+            ls -la
         env:
             GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}  
             GRADLE_PROPERTIES_CONTENT: ${{ secrets.GRADLE_PROPERTIES_CONTENT }}
@@ -71,10 +74,10 @@ jobs:
           keyStorePassword: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
 
-      - name: upload artifact to Firebase App Distribution
+      - name: Upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
-            appId: ${{secrets.FIREBASE_APP_ID}}
+            appId: ${{ secrets.FIREBASE_APP_ID }}
             serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS_CONTENT }}
             groups: testers
             file: android/app/build/outputs/apk/release/app-release.apk
