@@ -58,12 +58,14 @@ jobs:
           
       - name: Build apk
         run: |
+          cd android/app  
           ls -la
-          cd android
-          ./gradlew clean
-          ./gradlew assembleRelease
-          cd app/build/outputs/apk/release
+          cd ..
+          # ./gradlew clean
+          # ./gradlew assembleRelease
+          # cd app/build/outputs/apk/release
           ls -la
+
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
         id: sign
