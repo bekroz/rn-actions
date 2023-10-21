@@ -17,9 +17,17 @@ jobs:
         with:
           ruby-version: 2.7.2
           bundler-cache: true
-      
-      - name: Install dependencies 📦
-        run: yarn
+      - name: Setup Bun Runtime 🍞
+        uses: antongolub/action-setup-bun@v1
+        with:
+          bun-version: latest
+          bun-repo: 'Jarred-Sumner/bun-releases-for-updater'
+          bun-config: '{"install": {"production": false}}'
+          cache: true
+          cache-bin: true
+          
+      - name: Install and cache dependencies 📦
+        run: bun i
       
       - name: Create Google Service Credentials file 🔑
         run: |
