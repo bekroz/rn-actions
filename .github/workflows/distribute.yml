@@ -69,8 +69,9 @@ jobs:
           cd android/fastlane
           if [ -f config/firebase-credentials.json ]; then
             echo "Firebase service credentials file exists"
-            cd android/fastlane/config
+            cd config
             ls -la
+            cd ..
           else
             echo "Firebase service credentials file does not exist"
           fi
