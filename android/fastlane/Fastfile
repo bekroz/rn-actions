@@ -21,12 +21,13 @@ platform :android do
 
      release_note_information = " BRANCH => #{git_branch} - developer: #{last_git_commit[:author]}"
      release_notes = "#{release_note_information} \n #{options[:r]}"
-
+     groups_file = "fastlane/config/groups.txt"
+     
      firebase_app_distribution(
            app: app_id,
            apk_path: apk_path,
            release_notes: release_notes,
-           groups_file: groups,
+           groups_file: groups_file,
            service_credentials_file: credentials_file
     )
   end

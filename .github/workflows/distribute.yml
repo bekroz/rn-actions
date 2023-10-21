@@ -53,3 +53,6 @@ jobs:
           cd android/fastlane
           bundle install
           bundle exec fastlane distribute --verbose
+        env:
+          FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
+          
