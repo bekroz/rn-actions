@@ -1,2 +1,2 @@
-json_key_file("fastlane/firebase-credentials.json")
+json_key_file("fastlane/config/firebase-credentials.json")
 package_name("com.rnactions") # CHANGE TO YOUR PACKAGE NAME
