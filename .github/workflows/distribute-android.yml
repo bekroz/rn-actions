@@ -50,6 +50,8 @@ jobs:
           ls -la
           cd android
           ./gradlew assembleRelease
+          cd app/build/outputs/apk/release
+          ls -la
       
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -58,6 +60,8 @@ jobs:
             serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS_CONTENT }}
             groups: testers
             file: app/build/outputs/apk/release/app-release.apk
+            debug: true
         env:
             FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+            FIREBASE_CREDENTIALS_CONTENT: ${{ secrets.FIREBASE_CREDENTIALS_CONTENT }}
           
