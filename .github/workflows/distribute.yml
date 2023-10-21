@@ -25,9 +25,15 @@ jobs:
           bun-config: '{"install": {"production": false}}'
           cache: true
           cache-bin: true
-          
-      - name: Install and cache dependencies 📦
-        run: bun i
+      - name: Cache node modules
+        uses: actions/cache@v3
+        id: cache-node-modules
+        with:
+            path: node_modules
+            key: bun-${{ hashFiles('bun.lockb') }}
+      - name: Install node modules if cache not present 📦
+        run: bun i --immutable
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
       
       - name: Create Google Service Credentials file 🔑
         run: |
@@ -63,6 +69,8 @@ jobs:
           cd android/fastlane
           if [ -f config/firebase-credentials.json ]; then
             echo "Firebase service credentials file exists"
+            cd android/fastlane/config
+            ls -la
           else
             echo "Firebase service credentials file does not exist"
           fi
