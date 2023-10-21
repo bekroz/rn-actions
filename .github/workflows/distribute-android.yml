@@ -55,9 +55,9 @@ jobs:
           cd android/app  
           ls -la
           cd ..
-          # ./gradlew clean
-          # ./gradlew assembleRelease
-          # cd app/build/outputs/apk/release
+          ./gradlew clean
+          ./gradlew assembleRelease
+          cd app/build/outputs/apk/release
           ls -la
 
       - name: Check if APK exists
