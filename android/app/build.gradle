@@ -1,5 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
+apply plugin: 'com.google.gms.google-services'
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -105,6 +106,8 @@ android {
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
+    implementation platform('com.google.firebase:firebase-bom:31.0.2')
+    
     implementation("com.facebook.react:react-android")
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
