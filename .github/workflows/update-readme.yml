@@ -6,12 +6,19 @@ on:
     types:
         - completed
 
+  schedule:
+    - cron: "0 0 * * *"
+
 jobs:
   update-readme:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set start time
+        id: start-time
+        run: echo "::set-output name=start-time::$(date +%s)"
 
       - name: Get Last Action Time
         run: echo "LAST_ACTION_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_ENV

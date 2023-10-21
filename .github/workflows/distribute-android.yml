@@ -72,12 +72,3 @@ jobs:
             groups: testers
             file: android/app/build/outputs/apk/release/app-release.apk
             debug: true
-        env:
-            FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-            FIREBASE_CREDENTIALS_CONTENT: ${{ secrets.FIREBASE_CREDENTIALS_CONTENT }}
-      
-      - name: Set Last Action Time
-        id: set_last_action_time
-        run: echo "::set-output name=time::$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-      - name: Store Last Action Time
-        run: echo "LAST_ACTION_TIME=${{ steps.set_last_action_time.outputs.time }}" >> $GITHUB_ENV          
