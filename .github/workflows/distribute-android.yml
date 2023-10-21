@@ -63,7 +63,7 @@ jobs:
       - name: Check if APK exists
         run: |
           ls - la
-          cd android/app/build/outputs/apk/release
+          cd app/build/outputs/apk/release
           ls -la
           if [ ! -f app-release.apk ]; then
             echo "File not found!"
