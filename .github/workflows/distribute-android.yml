@@ -48,7 +48,7 @@ jobs:
       - name: Build release 
         run: |
           ls -la
-          cd androd
+          cd android
           ./gradlew assembleRelease
       
       - name: upload artifact to Firebase App Distribution
