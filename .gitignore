@@ -2,6 +2,7 @@
 *.env
 !.env.example
 *firebase-credentials.json
+*google-services.json
 
 # OSX
 #
