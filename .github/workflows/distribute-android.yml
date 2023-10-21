@@ -66,16 +66,6 @@ jobs:
           # cd app/build/outputs/apk/release
           ls -la
 
-      - name: Sign APK
-        uses: r0adkll/sign-android-release@v1
-        id: sign
-        with:
-          releaseDirectory: android/app/build/outputs/apk/release/
-          signingKeyBase64: ${{ secrets.RELEASE_KEYSTORE_CONTENT }}
-          alias: ${{ secrets.RELEASE_KEYSTORE_ALIAS }}
-          keyStorePassword: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
-          keyPassword: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
-
       - name: Upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
