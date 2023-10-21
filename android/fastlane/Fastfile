@@ -20,10 +20,6 @@ platform :android do
      release_notes = "#{release_note_information} \n #{options[:r]}"
      groups_file = "config/groups.txt"
      service_file = "config/firebase-credentials.json"
-
-
-     UI.message("Firebase App Distribution - App ID: #{app_id}")
-     file = UI.message("Firebase Service File: #{File.read(service_file)}")
      
      firebase_app_distribution(
            app: "1:691622321401:android:b2b1c460a58b5fd4e5d628",
