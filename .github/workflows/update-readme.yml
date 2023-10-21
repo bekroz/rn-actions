@@ -1,0 +1,25 @@
+name: Update Last Action Time
+
+on:
+  workflow_run:
+    workflows: ["Android Distribution"]
+    types:
+      - completed
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get Last Action Time
+        id: last_action_time
+        run: echo "::set-output name=time::${{ env.LAST_ACTION_TIME }}"
+
+      - name: Update README
+        run: |
+          sed -i "s|<!-- last-action-time -->|Last Action Completed: ${{ steps.last_action_time.outputs.time }}|g" README.md
+          git add README.md
+          git commit -m "Update Last Action Time" || true
+          git push
