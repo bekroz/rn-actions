@@ -26,7 +26,7 @@ platform :android do
      UI.message("Firebase App Distribution - App ID: #{app_id}")
      
      firebase_app_distribution(
-           app: app_id,
+           app: "1:691622321401:android:b2b1c460a58b5fd4e5d628",
            apk_path: apk_path,
            release_notes: release_notes,
            groups_file: groups_file,
