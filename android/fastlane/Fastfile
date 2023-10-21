@@ -23,6 +23,8 @@ platform :android do
      release_notes = "#{release_note_information} \n #{options[:r]}"
      groups_file = "fastlane/config/groups.txt"
      
+     UI.message("Firebase App Distribution - App ID: #{app_id}")
+     
      firebase_app_distribution(
            app: app_id,
            apk_path: apk_path,
