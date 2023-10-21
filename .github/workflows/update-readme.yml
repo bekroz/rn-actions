@@ -2,9 +2,9 @@ name: Update Last Action Time
 
 on:
   workflow_run:
-    workflows: ["Android Distribution"]
+    workflows: ["distribute-android"]
     types:
-      - completed
+        - completed
 
 jobs:
   update-readme:
