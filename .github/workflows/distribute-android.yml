@@ -1,4 +1,4 @@
-name: Add to Firebase App Distribution
+name: Android Distribution
 
 on:
   push:
