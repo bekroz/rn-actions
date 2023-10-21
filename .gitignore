@@ -3,6 +3,8 @@
 !.env.example
 *firebase-credentials.json
 *google-services.json
+*keystore.properties
+*gradle.properties
 
 # OSX
 #
