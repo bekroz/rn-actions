@@ -46,7 +46,10 @@ jobs:
       
       
       - name: Build release 
-        run: cd androd && ls -la && ./gradlew assembleRelease
+        run: |
+          ls -la
+          cd androd
+          ./gradlew assembleRelease
       
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
