@@ -17,9 +17,34 @@ jobs:
         with:
           ruby-version: 2.7.2
           bundler-cache: true
-      
-      - name: Install dependencies 📦
-        run: npm install
+
+      - name: Cache Ruby
+        uses: actions/cache@v3
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Setup Bun Runtime 🍞
+        uses: antongolub/action-setup-bun@v1
+        with:
+          bun-version: latest
+          bun-repo: 'Jarred-Sumner/bun-releases-for-updater'
+          bun-config: '{"install": {"production": false}}'
+          cache: true
+          cache-bin: true
+          
+      - name: Cache node modules
+        uses: actions/cache@v3
+        id: cache-node-modules
+        with:
+            path: node_modules
+            key: bun-${{ hashFiles('bun.lockb') }}
+
+      - name: Install node modules if cache not present 📦
+        run: bun i --immutable
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
       
       - name: Create Google Service Credentials file 🔑
         run: |
@@ -29,32 +54,34 @@ jobs:
               GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}  
       - name: Create Firebase Service Credentials file 🔑
         run: |
-            echo "$FIREBASE_CREDENTIALS" > firebase_credentials.json.b64
-            base64 -d -i firebase_credentials.json.b64 > firebase_credentials.json
+            echo "$FIREBASE_CREDENTIALS" > firebase-credentials.json.b64
+            base64 -d -i firebase-credentials.json.b64 > android/fastlane/config/firebase-credentials.json
         env:
+              # Firebase credentials are stored in a base64 encoded format 
               FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
+              FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
       
       - name: Install Fastlane
         run: |
-          ls -la
           cd android/fastlane
           gem install fastlane
           fastlane --version
       
-      - name: Cache Fastlane
-        uses: actions/cache@v2
-        with:
-          path: ~/.fastlane
-          key: ${{ runner.os }}-fastlane-${{ hashFiles('Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-fastlane-
-      
       - name: Build and Upload to Firebase
         run: |
-          ls -la
           cd android/fastlane
-          echo "--- Build and Upload to Firebase ---"
-          fastlane --version
-          ls -la
+          if [ -f config/firebase-credentials.json ]; then
+            echo "✅ Firebase service credentials file exists"
+            cd config
+            ls -la
+            cd ..
+          else
+            echo "🔴 Firebase service credentials file does not exist"
+            ls -la
+            exit 1
+          fi
           bundle install
           bundle exec fastlane distribute --verbose
+        env:
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+          
