@@ -63,9 +63,9 @@ jobs:
       - name: Check if APK exists
         run: |
           ls -la
-          
+          cd android/app
           find . -type d -print
-          
+
           if [ ! -f app-release.apk ]; then
             echo "File not found!"
             exit 1
