@@ -1,0 +1,34 @@
+opt_out_usage
+default_platform(:android)
+
+app_id = ENV["FIREBASE_APP_ID"]
+groups = ENV["FIREBASE_GROUPS"]
+credentials_file = ENV["FIREBASE_CREDENTIALS"]
+
+
+platform :android do
+  desc "Submit a new Google Test Build to Firebase App Distribution"
+  lane :distribute do |options|
+
+     gradle(task: "clean")
+     gradle(task: "assemble", build_type: "Release")
+
+     output_path = "./app/build/outputs/apk/release/"
+     output_json_path = output_path + "output-metadata.json"
+     build_output = load_json(json_path: output_json_path)
+     elements = build_output["elements"][0]
+     apk_path = output_path + elements["outputFile"]
+
+     release_note_information = " BRANCH => #{git_branch} - developer: #{last_git_commit[:author]}"
+     release_notes = "#{release_note_information} \n #{options[:r]}"
+
+     firebase_app_distribution(
+           app: app_id,
+           apk_path: apk_path,
+           release_notes: release_notes,
+           groups_file: groups,
+           service_credentials_file: credentials_file
+    )
+  end
+
+end
