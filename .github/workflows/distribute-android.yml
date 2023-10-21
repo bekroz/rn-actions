@@ -60,6 +60,20 @@ jobs:
           # cd app/build/outputs/apk/release
           ls -la
 
+      - name: Check if APK exists
+        run: |
+          cd android/app
+          ls -la
+          cd ..
+          # ./gradlew clean
+          # ./gradlew assembleRelease
+          # cd app/build/outputs/apk/release
+          ls -la
+          if [ ! -f app-release.apk ]; then
+            echo "File not found!"
+            exit 1
+          fi
+        
       - name: Upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
