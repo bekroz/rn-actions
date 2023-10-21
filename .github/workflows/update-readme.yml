@@ -14,12 +14,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Get Last Action Time
-        id: last_action_time
-        run: echo "::set-output name=time::${{ env.LAST_ACTION_TIME }}"
+        run: echo "LAST_ACTION_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_ENV
 
       - name: Update README
         run: |
-          sed -i "s|<!-- last-action-time -->|Last Action Completed: ${{ steps.last_action_time.outputs.time }}|g" README.md
+          sed -i "s|<!-- last-action-time -->|Last Action Completed: ${{ env.LAST_ACTION_TIME }}|g" README.md
           git add README.md
           git commit -m "Update Last Action Time" || true
           git push
