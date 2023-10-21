@@ -90,12 +90,10 @@ android {
             keyPassword 'android'
         }
         release {
-            if (project.hasProperty('release.keystore')) {
-                storeFile file("release.keystore")
-                storePassword KEYSTORE_PASSWORD
-                keyAlias KEYSTORE_ALIAS
-                keyPassword KEYSTORE_PASSWORD
-            }
+            storeFile file("release.keystore")
+            storePassword KEYSTORE_PASSWORD
+            keyAlias KEYSTORE_ALIAS
+            keyPassword KEYSTORE_PASSWORD
         }
     }
     buildTypes {
