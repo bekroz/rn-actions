@@ -19,7 +19,7 @@ jobs:
           bundler-cache: true
       
       - name: Install dependencies 📦
-        run: npm install
+        run: yarn
       
       - name: Create Google Service Credentials file 🔑
         run: |
