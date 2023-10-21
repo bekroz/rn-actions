@@ -36,7 +36,6 @@ jobs:
       
       - name: Install Fastlane
         run: |
-          ls -la
           cd android/fastlane
           gem install fastlane
           fastlane --version
@@ -51,10 +50,6 @@ jobs:
       
       - name: Build and Upload to Firebase
         run: |
-          ls -la
           cd android/fastlane
-          echo "--- Build and Upload to Firebase ---"
-          fastlane --version
-          ls -la
           bundle install
           bundle exec fastlane distribute --verbose
