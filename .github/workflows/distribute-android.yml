@@ -32,7 +32,7 @@ jobs:
         run: bun i --immutable
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
 
-      - name: Create Credentials files 🔑
+      - name: Create credential files 🔑
         run: |
             echo "${{ secrets.GOOGLE_SERVICES }}" > google-services.json.b64
             base64 -d -i google-services.json.b64 > android/app/google-services.json
@@ -40,40 +40,31 @@ jobs:
             echo "${{ secrets.GRADLE_PROPERTIES_CONTENT }}" > gradle.properties.b64
             base64 -d -i gradle.properties.b64 > android/app/gradle.properties
       
-      - name: Set up JDK 11
+      - name: Set up JDK 11 ☕
         uses: actions/setup-java@v3
         with:
             distribution: zulu
             java-version: 11
             cache: 'gradle'
-      
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
           
-      - name: Build apk action
+      - name: Build APK 🏗️
         run: |
-          cd android/app  
-          ls -la
-          cd ..
+          cd android
           ./gradlew clean
           ./gradlew assembleRelease
-          cd app/build/outputs/apk/release
-          ls -la
 
-      - name: Check if APK exists
+      - name: Check if APK exists 📂
         run: |
           ls -la
           cd android/app/build/outputs/apk/release
           find . -type d -print
 
           if [ ! -f app-release.apk ]; then
-            echo "File not found!"
+            echo "🔴 File not found!"
             exit 1
-          else
-            echo "File found!"
           fi
-        
-      - name: Upload artifact to Firebase App Distribution
+
+      - name: Upload to Firebase App Distribution 📲
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
             appId: ${{ secrets.FIREBASE_APP_ID }}
