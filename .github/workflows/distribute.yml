@@ -55,4 +55,5 @@ jobs:
           bundle exec fastlane distribute --verbose
         env:
           FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           
