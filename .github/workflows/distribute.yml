@@ -51,10 +51,10 @@ jobs:
       
       - name: Build and Upload to Firebase
         run: |
+          echo $FIREBASE_APP_ID
           cd android/fastlane
           bundle install
           bundle exec fastlane distribute --verbose
         env:
-          FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           
