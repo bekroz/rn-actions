@@ -50,7 +50,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
           
-      - name: Build apk
+      - name: Build apk action
         run: |
           cd android/app  
           ls -la
@@ -63,7 +63,7 @@ jobs:
       - name: Check if APK exists
         run: |
           ls -la
-          cd android/app
+          cd android/app/build/outputs/apk/release
           find . -type d -print
 
           if [ ! -f app-release.apk ]; then
