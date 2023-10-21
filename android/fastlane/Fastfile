@@ -21,6 +21,16 @@ platform :android do
      groups_file = "fastlane/config/groups.txt"
      service_file = "fastlane/config/firebase-credentials.json"
      
+    # log pwd
+    path = Dir.pwd
+    puts "Current path: #{path}"  
+    UI.message("Current path: #{path}")
+
+    # log ls -la 
+    ls = `ls -la`
+    puts "ls -la: #{ls}"
+    UI.message("ls -la: #{ls}")
+
      firebase_app_distribution(
            app: "1:691622321401:android:b2b1c460a58b5fd4e5d628",
            apk_path: apk_path,
