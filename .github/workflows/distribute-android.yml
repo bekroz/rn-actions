@@ -36,8 +36,12 @@ jobs:
         run: |
             echo "$RELEASE_KEYSTORE_CONTENT" > release-keystore.b64
             base64 -d -i release-keystore.b64 > android/app/release.keystore
+
+            echo "$GRADLE_PROPERTIES_CONTENT" > gradle-properties.b64
+            base64 -d -i gradle-properties.b64 > android/app/gradle.properties
         env:
             RELEASE_KEYSTORE_CONTENT: ${{ secrets.RELEASE_KEYSTORE_CONTENT }}  
+            GRADLE_PROPERTIES_CONTENT: ${{ secrets.GRADLE_PROPERTIES_CONTENT }}
 
       - name: Create Google Service Credentials file 🔑
         run: |
